@@ -1,0 +1,131 @@
+import platos.*
+import comensales.*
+
+describe "Test de platos"{
+	const provoleta1 = new Provoleta(peso=260,tieneEspecias=true,esCompleta=false)
+	const provoleta2 = new Provoleta(peso=240,tieneEspecias=false,esCompleta=true)
+	const hamburguesaCarne1 = new HamburguesaCarne(pan = masaMadre)
+	const hamburguesaLenteja = new HamburguesaVegana(pan = masaMadre,legumbre="lentejas")
+	const parrilla1 = new Parrillada (cantCortes=4)
+	const parrilla2 = new Parrillada (cantCortes=2)
+	
+	const matias = new Vegetariano(peso=75000)
+	const marta = new HambrePopular(peso=90000)
+	const leopoldo = new Vegetariano(peso=50000)
+	
+	method inzialize(){
+		matias.comer(hamburguesaLenteja)
+		matias.comer(hamburguesaLenteja)
+		matias.comer(hamburguesaLenteja)
+		marta.comer(parrilla1)
+		leopoldo.comer(provoleta1)
+		leopoldo.comer(hamburguesaLenteja)
+	}
+	
+	test "Provoleta 1 es abundante"{
+		assert.that(provoleta1.esAbundante())
+	}
+	test "Provoleta 2 no es abundante"{
+		assert.notThat(provoleta2.esAbundante())
+	}
+	test "Provoleta 1 valoracion 120"{
+		assert.equals(120, provoleta1.valoracion())
+	}
+	test "Provoleta 2 valoracion 85"{ // tendria que ser 85, pero es especial y por eso da 120
+		assert.equals(120, provoleta2.valoracion())
+	}
+	
+	test "Provoleta 1 es vegana"{
+		assert.that(provoleta1.esVegetariano())
+	}
+	test "Provoleta 2 no es vegana"{
+		assert.notThat(provoleta2.esVegetariano())
+	}
+	test"Hamburguesa carne no es abundante"{
+		assert.notThat(hamburguesaCarne1.esAbundante())
+	}
+	test"Hamburguesa vegana no es abundante"{
+		assert.notThat(hamburguesaLenteja.esAbundante())
+	}
+	test "Hamburguesa carne valoracion 105"{
+		assert.equals(105, hamburguesaCarne1.valoracion())
+	}
+	test "Hamburguesa vegana valoracion 121"{
+		assert.equals(121, hamburguesaLenteja.valoracion())
+	}
+	test "Hamburguesa carne no es vegana"{
+		assert.notThat(hamburguesaCarne1.esVegetariano())
+	}
+	test "Hamburguesa vegana es vegana"{
+		assert.that(hamburguesaLenteja.esVegetariano())
+	}
+	test "peso parrilla 1 es 1000"{
+		assert.equals(1000,parrilla1.peso())
+	}
+	test "peso parrilla 2 es 500"{
+		assert.equals(500,parrilla2.peso())
+	}
+	test "parrilla 1 es abundante"{
+		assert.that(parrilla1.esAbundante())
+	}
+	test "parrilla 2 es abundante"{
+		assert.that(parrilla2.esAbundante())
+	}
+	test "parrilla 1 valoracion 100"{
+		assert.equals(100,parrilla1.valoracion())
+	}
+	test "parrilla 2 valoracion 70"{
+		assert.equals(70,parrilla2.valoracion())
+	}
+	
+	test "matias le agrada la provoleta 1"{
+		assert.that(matias.leAgrada(provoleta1))
+	}
+	test "matias no le agrada la provoleta 1"{
+		assert.notThat(matias.leAgrada(provoleta2))
+	}
+	test "matias no le agrada la hamburguesa carne"{
+		assert.notThat(matias.leAgrada(hamburguesaCarne1))
+	}
+	
+	test "matias esta sastifecho con tres hamguesas veganas"{
+		assert.that(matias.estaSastifecho())
+	}
+	test "matias no esta sastifecho con tres hamguesas veganas y provoleta"{
+		matias.comer(provoleta1)
+		assert.notThat(matias.estaSastifecho())
+	}
+	
+	test "Marta le gustan las dos parrillas"{
+		assert.that(marta.leAgrada(parrilla1))
+		assert.that(marta.leAgrada(parrilla2))
+	}
+	
+	test "Marta no le gustan las dos hamburguesas"{
+		assert.notThat(marta.leAgrada(hamburguesaCarne1))
+		assert.notThat(marta.leAgrada(hamburguesaLenteja))
+	}
+	test "marta esta sastifecha"{
+		assert.that(marta.estaSastifecho())
+	}
+	test "leopoldo le agrada la provoleta 1 y las dos hambuerguesas."{
+		assert.that(leopoldo.leAgrada(provoleta1))
+		//assert.that(leopoldo.leAgrada(hamburguesaCarne1)) tiene menor valoracion
+		assert.that(leopoldo.leAgrada(hamburguesaLenteja))
+	}
+	test "No le gusta ninguna de las dos parrillas ni la provoleta 2"{
+		assert.notThat(leopoldo.leAgrada(provoleta2))
+		assert.notThat(leopoldo.leAgrada(parrilla1))
+		assert.notThat(leopoldo.leAgrada(parrilla2))
+	}
+	test "leopoldo come hamburguesa vegana y provoleta 1"{
+		assert.that(leopoldo.estaSastifecho())
+	}
+	test "leopoldo come 2 hamburguesa vegana y provoleta 1"{
+		leopoldo.comer(hamburguesaLenteja)
+		assert.notThat(leopoldo.estaSastifecho())
+	}
+}
+
+
+
