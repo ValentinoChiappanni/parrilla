@@ -4,8 +4,8 @@ import comensales.*
 describe "Test de platos"{
 	const provoleta1 = new Provoleta(peso=260,tieneEspecias=true,esCompleta=false)
 	const provoleta2 = new Provoleta(peso=240,tieneEspecias=false,esCompleta=true)
-	const hamburguesaCarne1 = new HamburguesaCarne(pan = masaMadre)
-	const hamburguesaLenteja = new HamburguesaVegana(pan = masaMadre,legumbre="lentejas")
+	const hamburguesaCarne1 = new HamburguesaCarne(pan = new MasaMadre())
+	const hamburguesaLenteja = new HamburguesaVegana(pan = new MasaMadre(),legumbre="lentejas")
 	const parrilla1 = new Parrillada (cantCortes=4)
 	const parrilla2 = new Parrillada (cantCortes=2)
 	

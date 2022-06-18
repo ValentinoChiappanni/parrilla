@@ -72,20 +72,22 @@ class Parrillada inherits Plato{
 
 
 
+class Pan{
+	method puntos()
+}
 
-
-object industrial{
-	method puntos(){
+class Industrial inherits Pan{
+	override method puntos(){
 		return 0
 	}
 }
-object casero{
-	method puntos(){
+class Casero inherits Pan{
+	override method puntos(){
 		return 20
 	}
 }
-object masaMadre{
-	method puntos(){
+class MasaMadre inherits Pan{
+	override method puntos(){
 		return 45
 	}
 }
